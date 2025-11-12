@@ -9,7 +9,7 @@ export const Navbar = () => {
       </div>
 
       <button
-        className="cursor-pointer bg-linear-to-br from-[#5C6691] via-50% to-[#E8EDFF] text-gray-900 tracking-wide font-semibold px-3 py-2 rounded-lg transition-all duration-300 transform shadow-lg hover:shadow-xl"
+        className="cursor-pointer text-xl text-gray-800 bg-linear-to-br from-[#5C6691] via-50% to-[#E8EDFF] tracking-wide font-semibold px-3 py-2 rounded-lg transition-all duration-300 transform shadow-lg hover:shadow-xl"
         onClick={() => window.open('https://konfhub.com/medha-2k25', '_blank')}
       >
         Register

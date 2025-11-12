@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 gsap.registerPlugin(useGSAP);
 
@@ -18,8 +19,31 @@ export const Events = () => {
     { src: "indica-product.webp", alt: "Event 1", zIndex: 1 },
   ]
 
+  const events = [
+    { name: "event1" },
+    { name: "event2" },
+    { name: "event3" },
+    { name: "event4" },
+    { name: "event5" },
+    { name: "event6" },
+    { name: "event7" },
+  ]
+
   const eventRef = useRef(null);
   const textRef = useRef(null);
+
+  const [startIndex, setStartIndex] = useState(0);
+  const eventsPerPage = 3;
+
+  const handleScrollRight = () => {
+    setStartIndex(prev => Math.min(prev + 1, events.length - eventsPerPage));
+  };
+
+  const handleScrollLeft = () => {
+    setStartIndex(prev => Math.max(prev - 1, 0));
+  };
+
+  const visibleEvents = events.slice(startIndex, startIndex + eventsPerPage);
 
   useGSAP(() => {
     gsap.to(eventRef.current, {
@@ -52,6 +76,7 @@ export const Events = () => {
       className="relative w-screen h-screen bg-blue-900 [background:linear-gradient(180deg,#162145_0%,#122D53_35%,#0B4772_55%,#016797_100%)] overflow-hidden"
     >
       <div className="absolute inset-0 z-0" />
+
       {backgroundLayers.map((layer) => (
         <img
           key={layer.src}
@@ -65,7 +90,7 @@ export const Events = () => {
       <div className="absolute top-50 z-10 w-full overflow-hidden">
         <h1
           ref={textRef}
-          className="uppercase text-[220px] font-bold whitespace-nowrap [-webkit-text-stroke:1px_lightblue] [-webkit-text-fill-color:transparent] text-transparent filter drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"
+          className="uppercase text-[220px] font-bold whitespace-nowrap [-webkit-text-stroke:1px_lightblue] [-webkit-text-fill-color:transparent] [color:transparent] filter drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"
         >
           Technical Events Technical Events Technical Events
         </h1>
@@ -81,22 +106,38 @@ export const Events = () => {
         <img className="absolute bottom-200 h-[60%]" src={images[3].src} alt="" />
       </div>
 
-      <div className="nav-holder" style={{
-        bottom: '20px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: 'auto',
-        maxWidth: '560px',
-        margin: 'auto'
-      }}>
+
+      <div style={{ bottom: "20px" }} className="left-[50%] transform w-auto max-w-[560px] m-auto nav-holder">
         <div className="clipped-shape relative w-[90%] h-20">
         </div>
-        <div className="absolute inset-0 flex items-center px-2 pointer-events-auto">
-          <div className="w-full overflow-hidden h-full flex justify-around items-center text-blue-900 font-bold">
-            <button className="px-4 py-2">Home</button>
-            <button className="px-4 py-2">Events</button>
-            <button className="px-4 py-2">About</button>
-            <button className="px-4 py-2">Contact</button>
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full font-rust overflow-hidden h-full flex justify-around items-center text-white bg-gray-600/60 font-bold nav-inner-fill">
+            {/* Left Scroll Button */}
+            <button
+              onClick={handleScrollLeft}
+              disabled={startIndex === 0}
+              className={`p-2 rounded-full text-white transition ${startIndex === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/30'}`}
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            {/* Event Buttons Container */}
+            <div className="w-[90%] font-rust overflow-hidden h-full flex justify-around items-center text-white bg-gray-600/60 font-bold nav-inner-fill mx-2">
+              {visibleEvents.map((event) => (
+                <button key={event.name} className="px-4 py-2 cursor-pointer transition hover:scale-105">
+                  {event.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Right Scroll Button */}
+            <button
+              onClick={handleScrollRight}
+              disabled={startIndex >= events.length - eventsPerPage}
+              className={`p-2 rounded-full text-white transition ${startIndex >= events.length - eventsPerPage ? 'opacity-50 cursor-not-allowed' : 'hover:bg-white/30'}`}
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
         </div>
       </div>

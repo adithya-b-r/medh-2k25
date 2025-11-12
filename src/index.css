@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @layer base {
   @font-face {
     font-family: 'Rustea Custom';
@@ -8,12 +10,12 @@
   }
 }
 
-@import "tailwindcss";
+@theme {
+  --font-rust: "Rustea Custom", sans-serif; 
+}
 
-@layer base {
-  * {
-    font-family: 'Rustea Custom', 'serif';
-  }
+*{
+  font-family: "Rustea Custom", sans-serif; 
 }
 
 @keyframes spin-reverse {
@@ -75,6 +77,11 @@
   clip-path: polygon(0px 8px, 0px calc(100% - 0px), calc(100% - 42px) calc(100% - 0px), calc(100% - 0px) calc(100% - 25px), calc(100% - 0px) 14px, calc(100% - 18px) 0px, 112px 0px, 102px 8px, 10px 8px, 0px 8px, 11px 9px, 103px 9px, 113px 1px, calc(100% - 19px) 1px, calc(100% - 1px) 15px, calc(100% - 1px) calc(100% - 26px), calc(100% - 43px) calc(100% - 1px), 1px calc(100% - 1px), 1px 9px, 11px 9px);
 }
 
-.nav-holder>div:last-child {
+.nav-inner-fill {
+  -webkit-clip-path: polygon(9px 16px, 9px calc(100% - 9px), calc(100% - 47px) calc(100% - 9px), calc(100% - 9px) calc(100% - 31px), calc(100% - 9px) 19px, calc(100% - 20px) 9px, 114px 9px, 105px 16px, 9px 16px);
+  clip-path: polygon(9px 16px, 9px calc(100% - 9px), calc(100% - 47px) calc(100% - 9px), calc(100% - 9px) calc(100% - 31px), calc(100% - 9px) 19px, calc(100% - 20px) 9px, 114px 9px, 105px 16px, 9px 16px);
+}
+
+.nav-holder > div:last-child {
   pointer-events: auto;
 }
