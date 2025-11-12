@@ -1,12 +1,12 @@
 export const Navbar = () => {
   return (
     <header className="w-full h-20 bg-transparent fixed top-0 left-0 flex justify-between items-center px-4 z-99">
-      <div className="hidden w-1/3 uppercase md:flex items-center">
-        <img src="sdit.png" className="h-14 w-14" alt="" />
+      <div className="hidden w-1/3 uppercase md:flex items-center text-white">
+        <img src="/sdit.png" className="h-14 w-14" alt="" />
         <h3 className="scale-x-125 pl-8">shree devi institute<br />of technology</h3>
       </div>
 
-      <div className="md:w-1/3 w-full">
+      <div className="md:w-1/3 w-full text-white">
         {/* <img className="h-15" src="medha2.png" alt="" /> */}
         <h3 className="uppercase text-3xl md:text-3xl">Medha <span className="text-2xl">.25</span></h3>
       </div>

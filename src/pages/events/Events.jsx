@@ -2,8 +2,20 @@ import { useRef, useState, useEffect } from "react";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMediaQuery } from 'react-responsive'
+import { Contact } from "./Contact";
 
 gsap.registerPlugin(useGSAP);
+
+const mainClipPath =
+  '[clip-path:polygon(0_30px,20px_0,100%_0,100%_calc(100%-15px),calc(100%-15px)_100%,0_100%)]';
+
+// Define the custom clip-path for the "ABOUT" header tab
+// This has a single-point trapezoid cut on the right.
+const tabClipPath = '[clip-path:polygon(0_0,calc(100%-15px)_0,100%_100%,0_100%)]';
+
+// Styles for the glowing border effect (blue/cyan)
+const borderStyles = 'shadow-[0_0_10px_2px_rgba(23,170,255,0.7),_0_0_1px_1px_rgba(0,100,255,0.8)_inset]';
 
 export const Events = () => {
   const backgroundLayers = [
@@ -37,11 +49,18 @@ export const Events = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [modal, setModal] = useState(false);
+
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const getVisibleEvents = () => {
-    const prevIndex = (currentIndex - 1 + events.length) % events.length;
-    const nextIndex = (currentIndex + 1) % events.length;
-    return [events[prevIndex], events[currentIndex], events[nextIndex]];
+    if (isMobile) {
+      return [events[currentIndex], events[(currentIndex + 1) % events.length]];
+    } else {
+      const prevIndex = (currentIndex - 1 + events.length) % events.length;
+      const nextIndex = (currentIndex + 1) % events.length;
+      return [events[prevIndex], events[currentIndex], events[nextIndex]];
+    }
   };
 
   const runScrollAnimation = (callback, zVal) => {
@@ -107,19 +126,15 @@ export const Events = () => {
     runScrollAnimation(() => setCurrentIndex((prev) => (prev - 1 + events.length) % events.length), -50);
   };
 
-  // Mouse wheel event handler
   const handleWheel = (e) => {
     e.preventDefault();
     if (e.deltaY > 0) {
-      // Scroll down - move right
       handleScrollRight();
     } else if (e.deltaY < 0) {
-      // Scroll up - move left
       handleScrollLeft();
     }
   };
 
-  // Mouse move event handler for left/right detection
   const handleMouseMove = (e) => {
     if (!sectionRef.current) return;
 
@@ -209,7 +224,7 @@ export const Events = () => {
         />
       ))}
 
-      <div className="absolute top-50 z-10 w-full overflow-hidden">
+      <div className="absolute md:top-50 top-55 z-10 w-full overflow-hidden">
         <h1
           ref={textRef}
           className="uppercase text-[220px] font-bold whitespace-nowrap [-webkit-text-stroke:1px_lightblue] [-webkit-text-fill-color:transparent] text-transparent filter drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"
@@ -219,16 +234,16 @@ export const Events = () => {
       </div>
 
       <div className="relative z-10 w-full h-full flex items-center justify-center">
-        <img className="absolute -bottom-220 transition duration-[10s] ease-in-out" src={images[0].src} alt="" style={{
+        <img className="md:scale-100 scale-200 absolute -bottom-50 md:-bottom-220 transition ease-in-out" src={images[0].src} alt="" style={{
           animation: 'spin-reverse 180s linear infinite'
         }} />
       </div>
 
       <div ref={eventRef} className="relative z-30 w-full h-full flex items-center justify-center">
-        <img className="absolute bottom-200 h-[60%]" src={images[3].src} alt="" />
+        <img className="absolute md:bottom-200 bottom-220 md:scale-100 scale-90 h-[60%]" src={images[3].src} alt="" />
       </div>
 
-      <div style={{ bottom: "20px" }} className="fixed left-[50%] transform w-auto max-w-[560px] nav-holder">
+      <div className="md:bottom-5 bottom-18 fixed left-[50%] transform w-auto max-w-[560px] nav-holder">
         <div className="clipped-shape relative w-[90%] h-20">
         </div>
         <div className="absolute inset-0 flex items-center">
@@ -240,11 +255,11 @@ export const Events = () => {
               <ChevronLeft size={24} />
             </button>
 
-            <div className="w-[90%] font-rust overflow-hidden h-full flex justify-around items-center text-white font-bold nav-inner-fill mx-2">
+            <div className={`w-[90%] font-manrope md:text-lg text-[14px] overflow-hidden h-full flex justify-around items-center text-white font-bold nav-inner-fill ${isMobile ? 'mx-1' : 'mx-2'}`}>
               {visibleEvents.map((event, index) => (
                 <button
                   key={`${event.name}-${index}`}
-                  className={`px-4 py-2 capitalize cursor-pointer transition hover:scale-105 ${index === 1 ? 'underline underline-offset-4' : ''
+                  className={`px-4 py-2 capitalize cursor-pointer transition hover:scale-105 ${(isMobile && index === 0) || (!isMobile && index === 1) ? 'underline underline-offset-4' : ''
                     }`}
                 >
                   {event.name}
@@ -261,6 +276,23 @@ export const Events = () => {
           </div>
         </div>
       </div>
+
+      <Contact />
+
+      <button
+        className="absolute uppercase cursor-pointer text-xl bottom-4 right-6 z-99 tracking-wider text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_15px_rgba(255,255,255,1)] transition-all duration-300 [-webkit-text-stroke:0.8px_lightblue] hover:scale-110"
+        onClick={() => { setModal(!modal) }}
+      >
+        {modal ? "Close" : "About"}
+      </button>
+
+      {/* Modal */}
+      {modal && (
+        <div className="uppercase text-4xl text-white flex justify-center items-center absolute inset-0 w-full h-full bg-transparent backdrop-blur-xl z-98">
+          About Us 
+        </div>
+      )}
+
     </section>
   );
 };

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import SplashPage from './pages/home/SplashPage';
-import { Events } from './pages/events/Events';
 import { Navbar } from './components/Navbar';
+import { Events } from './pages/events/Events';
+import { Event } from './pages/Event';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SplashPage />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/event/:section" element={<Event />} />
         </Routes>
       </Router>
     </>
