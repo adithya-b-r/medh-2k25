@@ -191,7 +191,7 @@ const Home = () => {
         {/* Planet Surface */}
         <img
           src="https://hellocopilot.com/wp-content/themes/copilot/img/takeoff/webp/planet-yellow-sativa.png.webp"
-          className="planet-surface absolute top-[10%] md:top-[5%] left-[120%] md:left-[100%] lg:left-[75%] xl:left-[65%]  2xl:w-[30%] max-w-[600px] -translate-x-1/2 z-25 animate-slow-spin animate-planet-glow"
+          className="planet-surface absolute top-[10%] md:top-[5%] left-[120%] md:left-full lg:left-[75%] xl:left-[65%]  2xl:w-[30%] max-w-[600px] -translate-x-1/2 z-25 animate-slow-spin animate-planet-glow"
           style={{
             filter: 'drop-shadow(0 0 40px rgba(255, 165, 0, 0.6)) drop-shadow(0 0 80px rgba(255, 100, 0, 0.3))'
           }}
@@ -210,9 +210,10 @@ const Home = () => {
 
         {/* Marquee Text */}
         <div className="marquee absolute top-[39%] md:top-[25%] left-0 w-full z-40 whitespace-nowrap overflow-hidden opacity-100 pointer-events-none">
-          <div className="marquee-inner inline-block font-rustea text-[22vh] md:text-[15vw] font-semibold bg-gradient-to-b from-white to-[#ffcccc] bg-clip-text text-transparent animate-marquee text-shadow-lg text-shadow-white tracking-tighter">
-            <span> Sparkle - An &nbsp;Association of MCA Presents </span>
-            <span> Sparkle - An &nbsp;Association of MCA Presents </span>
+          <div className="uppercase marquee-inner inline-block font-rustea text-[22vh] md:text-[15vw] font-semibold bg-linear-to-b from-white to-[#ffcccc] bg-clip-text text-transparent animate-marquee text-shadow-lg text-shadow-white tracking-tighter">
+            <span>Medha <span className='text-[12vh]'>.25</span> &nbsp;</span>
+            <span>Medha <span className='text-[12vh]'>.25</span> &nbsp;</span>
+            <span>Medha <span className='text-[12vh]'>.25</span> &nbsp;</span>
           </div>
         </div>
 
@@ -249,16 +250,16 @@ const Home = () => {
           onClick={closeAlert}
         >
           <div
-            className="bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 text-white p-6 md:p-12 rounded-2xl text-center border border-white/20 shadow-2xl shadow-black/90 backdrop-blur-xl max-w-[95%] md:max-w-[90%] w-full md:w-[450px] relative animate-scale-in"
+            className="bg-linear-to-br from-gray-800 via-gray-900 to-gray-800 text-white p-6 md:p-12 rounded-2xl text-center border border-white/20 shadow-2xl shadow-black/90 backdrop-blur-xl max-w-[95%] md:max-w-[90%] w-full md:w-[450px] relative animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/5 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/5 h-px bg-linear-to-r from-transparent via-white/30 to-transparent" />
             <p className="mb-6 md:mb-8 text-[clamp(1rem,4vw,1.3rem)] font-medium leading-relaxed">
               {alertMessage}
             </p>
             <button
               onClick={closeAlert}
-              className="px-8 md:px-10 py-3 bg-gradient-to-br from-[#d93a3e] via-[#ff6b6b] to-[#ff8888] border-none text-white rounded-full font-bold cursor-pointer transition-all duration-400 text-[clamp(0.9rem,3vw,1.05rem)] uppercase tracking-widest shadow-lg shadow-[#d93a3e]/50 relative overflow-hidden hover:-translate-y-0.5"
+              className="px-8 md:px-10 py-3 bg-linear-to-br from-[#d93a3e] via-[#ff6b6b] to-[#ff8888] border-none text-white rounded-full font-bold cursor-pointer transition-all duration-400 text-[clamp(0.9rem,3vw,1.05rem)] uppercase tracking-widest shadow-lg shadow-[#d93a3e]/50 relative overflow-hidden hover:-translate-y-0.5"
             >
               OK
             </button>

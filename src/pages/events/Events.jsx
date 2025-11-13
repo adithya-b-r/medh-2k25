@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive'
 import { Contact } from "./Contact";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(useGSAP);
 
@@ -18,6 +19,8 @@ const tabClipPath = '[clip-path:polygon(0_0,calc(100%-15px)_0,100%_100%,0_100%)]
 const borderStyles = 'shadow-[0_0_10px_2px_rgba(23,170,255,0.7),_0_0_1px_1px_rgba(0,100,255,0.8)_inset]';
 
 export const Events = () => {
+  const navigate = useNavigate();
+
   const backgroundLayers = [
     { src: "/2.png.webp", alt: "Stars", zIndex: 1 },
     { src: "/1.png.webp", alt: "Dark Cloud", zIndex: 2 },
@@ -31,15 +34,26 @@ export const Events = () => {
     { src: "indica-product.webp", alt: "Event 1", zIndex: 1 },
   ]
 
+  // const events = [
+  //   { name: "Code + Web" },
+  //   { name: "IT Quiz" },
+  //   { name: "Reels" },
+  //   { name: "IT Manager" },
+  //   { name: "Tech Tarot" },
+  //   { name: "Tech Talk" },
+  //   { name: "Disruption Room" },
+  //   { name: "Predict Past" },
+  // ]
+
   const events = [
-    { name: "Code + Web",  },
-    { name: "IT Quiz" },
-    { name: "Reels" },
-    { name: "IT Manager" },
-    { name: "Tech Tarot" },
-    { name: "Tech Talk" },
-    { name: "Disruption Room" },
-    { name: "Predict Past" },
+    { name: "Astrinix", img: "/events/img/e1.png" },
+    { name: "Tech Blitz", img: "/events/img/e2.png" },
+    { name: "Galactic Rise", img: "/events/img/e3.png" },
+    { name: "Reel Verse", img: "/events/img/e4.png" },
+    { name: "Stellar", img: "/events/img/e5.png" },
+    { name: "Tech Nova", img: "/events/img/e6.png" },
+    { name: "Chrono Cipher", img: "/events/img/e7.png" },
+    { name: "Time Nova", img: "/events/img/e8.png" }
   ]
 
   const eventRef = useRef(null);
@@ -227,7 +241,7 @@ export const Events = () => {
       <div className="absolute md:top-50 top-55 z-10 w-full overflow-hidden">
         <h1
           ref={textRef}
-          className="uppercase text-[220px] font-bold whitespace-nowrap [-webkit-text-stroke:1px_lightblue] [-webkit-text-fill-color:transparent] text-transparent filter drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"
+          className="uppercase text-[220px] font-bold whitespace-nowrap [-webkit-text-stroke:3px_lightblue] [-webkit-text-fill-color:transparent] text-transparent filter drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]"
         >
           {Array.from({ length: 6 }, (_, index) => events[currentIndex].name + "  ")}
         </h1>
@@ -239,8 +253,10 @@ export const Events = () => {
         }} />
       </div>
 
-      <div ref={eventRef} className="relative z-30 w-full h-full flex items-center justify-center">
-        <img className="absolute md:bottom-200 bottom-220 md:scale-100 scale-90 h-[60%]" src={images[3].src} alt="" />
+      <div
+        onClick={() => { navigate(`/event/${currentIndex}`) }}
+        ref={eventRef} className="relative z-30 w-full h-full flex items-center justify-center">
+        <img className="absolute md:bottom-200 bottom-220 md:scale-100 scale-90 h-[60%]" src={events[currentIndex].img} alt="" />
       </div>
 
       <div className="md:bottom-5 bottom-18 fixed left-[50%] transform w-auto max-w-[560px] nav-holder">
@@ -255,12 +271,11 @@ export const Events = () => {
               <ChevronLeft size={24} />
             </button>
 
-            <div className={`w-[90%] font-manrope md:text-lg text-[14px] overflow-hidden h-full flex justify-around items-center text-white font-bold nav-inner-fill ${isMobile ? 'mx-1' : 'mx-2'}`}>
+            <div className={`w-[90%]  font-manrope md:text-lg text-[14px] overflow-hidden h-full flex justify-around items-center text-white font-bold nav-inner-fill ${isMobile ? 'mx-1' : 'mx-2'}`}>
               {visibleEvents.map((event, index) => (
                 <button
                   key={`${event.name}-${index}`}
-                  className={`px-4 py-2 capitalize cursor-pointer transition hover:scale-105 ${(isMobile && index === 0) || (!isMobile && index === 1) ? 'underline underline-offset-4' : ''
-                    }`}
+                  className={`px-4 py-2 transition-all duration-500 ease-in-out capitalize cursor-pointer hover:scale-105 ${(isMobile && index === 0) || (!isMobile && index === 1) ? 'underline underline-offset-4' : ''}`}
                 >
                   {event.name}
                 </button>
@@ -280,7 +295,7 @@ export const Events = () => {
       <Contact />
 
       <button
-        className="absolute uppercase cursor-pointer text-xl bottom-4 right-6 z-99 tracking-wider text-white font-bold drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] hover:drop-shadow-[0_0_15px_rgba(255,255,255,1)] transition-all duration-300 [-webkit-text-stroke:0.8px_lightblue] hover:scale-110"
+        className="absolute bg-gray-200 px-2 py-1 rounded-xl uppercase cursor-pointer text-xl bottom-3 right-6 z-99 tracking-wider border-2 border-gray-800 text-shadow-gray-600 font-bold hover:scale-110"
         onClick={() => { setModal(!modal) }}
       >
         {modal ? "Close" : "About"}
@@ -289,7 +304,7 @@ export const Events = () => {
       {/* Modal */}
       {modal && (
         <div className="uppercase text-4xl text-white flex justify-center items-center absolute inset-0 w-full h-full bg-transparent backdrop-blur-xl z-98">
-          About Us 
+          About Us
         </div>
       )}
 

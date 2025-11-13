@@ -12,7 +12,7 @@ export const Event = () => {
   return (
     <section
       id="event"
-      className="relative w-screen h-screen bg-blue-950 [background:linear-gradient(180deg,#162145_0%,#122D53_35%,#0B4772_55%,#016797_100%)] overflow-hidden cursor-pointer"
+      className="relative w-screen h-screen bg-blue-950  bg-linear-to-b from-[#162145] via-[#122D53_35%] to-[#016797] overflow-hidden cursor-pointer"
     >
 
       {backgroundLayers.map((layer) => (
