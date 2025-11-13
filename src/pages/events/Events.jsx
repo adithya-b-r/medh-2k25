@@ -32,7 +32,7 @@ export const Events = () => {
   ]
 
   const events = [
-    { name: "Code + Web" },
+    { name: "Code + Web",  },
     { name: "IT Quiz" },
     { name: "Reels" },
     { name: "IT Manager" },
