@@ -26,8 +26,8 @@ export const About = () => {
 
         </svg>
 
-        <div className="shape-text">
-          hello
+        <div className="">
+          <p className="text-sm">The dynamic minds of the MCA department at Shree Devi Institute of Technology proudly presents MEDHA 2k25—a fest like no other, blending technology and creativity into an extraordinary experience. A grand spectacle like no other, where the tides of innovation and creativity converge in a breathtaking fusion of technology and artistry. Choose your passion, set a road map and achieve the success. MEDHA 2k25 is where you unleash your true potential!</p>
         </div>
       </div>
 

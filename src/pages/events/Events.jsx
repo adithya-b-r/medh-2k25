@@ -255,7 +255,7 @@ export const Events = () => {
       <div
         onClick={() => { navigate(`/event/${currentIndex}`) }}
         ref={eventRef} className="relative z-30 w-full h-full flex items-center justify-center">
-        <img className="absolute md:bottom-200 bottom-220 md:scale-100 scale-90 h-[60%]" src={events[currentIndex].img} alt="" />
+        <img className="absolute md:bottom-205 bottom-220 md:scale-100 scale-90 h-[60%]" src={events[currentIndex].img} alt="" />
       </div>
 
       <div className="md:bottom-5 bottom-18 fixed left-[50%] transform w-auto max-w-[560px] nav-holder">
