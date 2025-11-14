@@ -170,7 +170,7 @@ html, body{
     clip-path: polygon(100% 0, 100% calc(100% - 18px), calc(100% - 29px) 100%, 0 100%, 0 0);
 }
 
-/* Events Section */
+/* About Section */
 .animated-event-img {
   animation: customAnimation 3s linear infinite alternate;
 }
@@ -179,4 +179,22 @@ html, body{
   100% {
     transform: translate(-10px, -15px) rotateZ(-2deg);
   }
+}
+
+.shape-svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.shape-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; 
+  z-index: 1;
 }

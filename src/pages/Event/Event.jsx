@@ -161,7 +161,7 @@ export const Event = () => {
       {/* Floating Astronaut */}
       <img
         ref={astronautRef}
-        className="fixed bottom-0 left-0 md:scale-25 scale-40 md:translate-y-120 translate-y-30 md:translate-x-78 -translate-x-0 transition ease-in-out"
+        className="fixed bottom-0 left-0 md:scale-25 scale-40 md:translate-y-120 translate-y-30 md:translate-x-78 transition ease-in-out"
         src={images[2].src}
         alt={images[2].alt}
         style={{ zIndex: images[1].zIndex }}

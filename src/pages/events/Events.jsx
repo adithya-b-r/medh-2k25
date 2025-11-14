@@ -3,8 +3,10 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMediaQuery } from 'react-responsive'
-import { Contact } from "./Contact";
 import { useNavigate } from "react-router-dom";
+
+import { Contact } from "./Contact";
+import { About } from "../about/About";
 
 gsap.registerPlugin(useGSAP);
 
@@ -299,11 +301,7 @@ export const Events = () => {
       </button>
 
       {/* Modal */}
-      {modal && (
-        <div className="uppercase text-4xl text-white flex justify-center items-center absolute inset-0 w-full h-full bg-transparent backdrop-blur-xl z-98">
-          About Us
-        </div>
-      )}
+      {modal && <About />}
 
     </section>
   );
