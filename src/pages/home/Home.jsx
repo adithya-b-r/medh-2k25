@@ -12,24 +12,30 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const Home = () => {
   const starsContainerRef = useRef(null);
   const splashContainerRef = useRef(null);
-
-  // GSAP Start
   const astronautRef = useRef(null);
 
-  // useGSAP(() => {
-  //   const el1 = astronautRef.current;
+  useGSAP(() => {
+    const el1 = astronautRef.current;
 
-  //   gsap.to(el1, {
-  //     left: 100,
-  //     delay: 3,
-  //     duration: 5,
-  //     // yoyo: true,
-  //     repeat: -1,
-  //   })
-  // })
-  //GSAP End
+    const scene1 = gsap.to(el1, {
+      top: "2600px",
+      scale: 10,
+      duration: 500,
+      scrollTrigger: {
+        trigger: document.body,
+        start: "top top",
+        end: "500px",
+        scrub: 2,
+        markers: true,
+      }
+    });
 
-  // Create animated stars
+    return () => {
+      scene1.kill();
+    }
+
+  }, []);
+
   const createStars = () => {
     const starsContainer = starsContainerRef.current;
     if (!starsContainer) return;
@@ -78,7 +84,6 @@ const Home = () => {
     }
   };
 
-  // Create floating particles
   const createParticles = () => {
     const container = splashContainerRef.current;
     if (!container) return;
@@ -99,7 +104,6 @@ const Home = () => {
     }
   };
 
-  // Add parallax effect
   const handleMouseMove = (e) => {
     const mouseX = e.clientX / window.innerWidth;
     const mouseY = e.clientY / window.innerHeight;
@@ -126,22 +130,18 @@ const Home = () => {
     }
 
     if (astronaut) {
-      astronaut.style.transform = `translate(calc(-50% + ${
-        mouseX * 15 - 7.5
-      }px), calc(-50% + ${mouseY * 15 - 7.5}px))`;
+      astronaut.style.transform = `translate(calc(-50% + ${mouseX * 15 - 7.5}px), calc(-50% + ${mouseY * 15 - 7.5}px))`;
     }
   };
 
   useEffect(() => {
-    // Initialize dynamic elements
     createStars();
     createParticles();
 
     // Add event listeners
-    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener('mousemove', handleMouseMove);
 
     const handleResize = () => {
-      // Recreate stars and particles on resize for better performance
       const starsContainer = starsContainerRef.current;
       const splashContainer = splashContainerRef.current;
 
@@ -157,7 +157,6 @@ const Home = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("resize", handleResize);
@@ -166,37 +165,28 @@ const Home = () => {
 
   return (
     <div id="main-content" className="w-full h-full">
-      {/* Main Splash Container */}
       <div
         ref={splashContainerRef}
-        className="relative w-screen h-screen overflow-hidden bg-[#152448] bg-cover bg-center bg-no-repeat bg-blend-overlay"
+        className="relative w-screen h-[300vh] overflow-scroll bg-[#152448] bg-cover bg-center bg-no-repeat bg-blend-overlay"
         style={{
           backgroundImage: `linear-gradient(circle at 50% 30%,rgb(238, 37, 15) 0%,rgb(241, 29, 54) 80%,rgb(248, 0, 50) 100%), url('./home-cloud.webp')`,
         }}
       >
         {/* Glow Overlay */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none animate-glow-pulse bg-radial-gradient"
-          style={{
-            background:
-              "radial-gradient(ellipse at 50% 20%, rgba(255, 150, 50, 0.3) 0%, transparent 50%)",
-          }}
-        />
+        <div className="absolute inset-0 z-10 pointer-events-none animate-glow-pulse bg-radial-gradient"
+          style={{ background: 'radial-gradient(ellipse at 50% 20%, rgba(255, 150, 50, 0.3) 0%, transparent 50%)' }} />
 
-        {/* Stars Background */}
-        <div ref={starsContainerRef} className="absolute inset-0 z-0" />
+        <div ref={starsContainerRef} className="fixed inset-0 z-0" />
 
-        {/* Planet Background */}
         <img
           src="/web_element.png"
-          className="planet-bg absolute top-[5%] left-1/2 w-4/5 max-w-[800px] -translate-x-1/2 z-20 opacity-80 blur-xl animate-pulse-custom md:w-3/5"
+          className="planet-bg fixed top-[5%] left-1/2 w-4/5 max-w-[800px] -translate-x-1/2 z-20 opacity-80 blur-xl animate-pulse-custom md:w-3/5"
           alt="Red planet background"
         />
 
-        {/* Planet Surface */}
         <img
           src="./planet-yellow-sativa.png.webp"
-          className="planet-surface absolute top-[5%] max-w-[600px] md:translate-x-162 translate-x-25 md:scale-100 scale-75  z-25 animate-slow-spin animate-planet-glow"
+          className="planet-surface fixed top-[5%] max-w-[600px] md:translate-x-162 translate-x-25 md:scale-100 scale-75  z-25 animate-slow-spin animate-planet-glow"
           style={{
             filter:
               "drop-shadow(0 0 40px rgba(255, 165, 0, 0.6)) drop-shadow(0 0 80px rgba(255, 100, 0, 0.3))",
@@ -204,18 +194,16 @@ const Home = () => {
           alt="Crated planet surface"
         />
 
-        {/* Floating Rocks */}
         <img
           src="./home-rocks.png.webp"
-          className="floating-rocks absolute inset-0 object-cover object-center z-30 opacity-90 animate-float-rocks"
+          className="floating-rocks fixed inset-0 object-cover object-center z-30 opacity-90 animate-float-rocks"
           style={{
             filter: "drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5))",
           }}
           alt="Floating rocks in space"
         />
 
-        {/* Marquee Text */}
-        <div className="marquee absolute top-[39%] left-0 w-full z-40 whitespace-nowrap overflow-hidden opacity-100 pointer-events-none md:top-[25%]">
+        <div className="marquee fixed top-[39%] left-0 w-full z-40 whitespace-nowrap overflow-hidden opacity-100 pointer-events-none md:top-[25%]">
           <div className="uppercase marquee-inner inline-block font-rustea text-[22vh] font-semibold bg-linear-to-b from-white to-[#ffcccc] bg-clip-text text-transparent animate-marquee text-shadow-lg text-shadow-white tracking-tighter md:text-[15vw]">
             <span>
               Medha <span className="text-[12vh]">.25</span> &nbsp;
@@ -229,11 +217,10 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Astronaut */}
         <img
           ref={astronautRef}
           src="./home-astronaut.webp"
-          className="astronaut md:scale-150 scale-170 absolute top-[145%] h-[65%] w-auto md:translate-x-178 translate-x-60 md:-translate-y-1/2 -translate-y-65 z-40 min-h-[300px] animate-float-astronaut  md:top-[150%] md:h-[90%] md:min-h-[400px]"
+          className="astronaut md:scale-150 scale-170 fixed md:top-[60%] top-[90%] h-[65%] w-auto md:translate-x-125 translate-x-17 md:-translate-y-40 -translate-y-65 z-40 min-h-[300px] animate-float-astronaut  md:h-[90%] md:min-h-[400px]"
           style={{
             filter:
               "drop-shadow(0 15px 40px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 30px rgba(255, 100, 150, 0.2))",
@@ -241,24 +228,22 @@ const Home = () => {
           alt="Astronaut in a pink spacesuit"
         />
 
-        {/* Spaceship Floor */}
         <img
           src="./home-spaceship-page.png.webp"
-          className="spaceship-floor absolute md:bottom-0 -bottom-10 left-0 w-full h-[120%] object-cover object-bottom z-35 animate-fade-in md:h-[120%]"
+          className="spaceship-floor fixed md:bottom-0 -bottom-10 left-0 w-full h-[120%] object-cover object-bottom z-35 animate-fade-in md:h-[120%]"
           style={{
             filter: "drop-shadow(0 -10px 40px rgba(0, 0, 0, 0.7))",
           }}
           alt="Interior of a spaceship cockpit"
         />
 
+
+
         {/* Orbit Rings */}
         <div className="orbit-ring absolute w-[200px] h-[200px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/10 rounded-full animate-rotate-orbit pointer-events-none hidden md:block md:w-[300px] md:h-[300px]"></div>
-        <div
-          className="orbit-ring absolute w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/10 rounded-full animate-rotate-orbit pointer-events-none hidden md:block md:w-[450px] md:h-[450px]"
-          style={{ animationDuration: "35s", animationDirection: "reverse" }}
-        ></div>
+        <div className="orbit-ring absolute w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/10 rounded-full animate-rotate-orbit pointer-events-none hidden md:block md:w-[450px] md:h-[450px]"
+          style={{ animationDuration: '35s', animationDirection: 'reverse' }}></div>
 
-        {/* Scroll Down Animation*/}
         <ScrollDown />
       </div>
     </div>
